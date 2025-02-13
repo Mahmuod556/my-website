@@ -7,23 +7,255 @@
 
 /* أنماط الخلفية العامة */
 body {
-    background: #0a192f;
+    background: #0a192ff1;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Tajawal', sans-serif;
     padding: 20px;
+    position: relative;
+    overflow: hidden; /* لإخفاء أي عناصر خارج الإطار */
+}
+
+/* الأشكال العشوائية (اليسار - الكرات القديمة) */
+.floating-container {
+    display: flex;
+    flex-direction: column; /* ترتيب العناصر عموديًا */
+    align-items: center; /* توسيط الدوائر أفقياً */
+    gap: 0px; /* المسافة بين الدوائر */
+    position: absolute;
+    top: 100px; /* المسافة من الأعلى */
+    left: 8%; /* المسافة من اليسار */
+    transform: translateX(-50%);
+}
+
+/* الكرات على الجانب الأيسر */
+.floating-container .floating-circle-left {
+    width: 10px; /* حجم الدائرة */
+    height: 10px;
+    border-radius: 50%; /* جعلها دائرية */
+    background: var(--circle-color-left, blue); /* لون الكرات على اليسار */
+    animation: float-left-square-right 3s ease-in-out infinite, colors-left 4s infinite; /* استخدام التحريك الجديد مع ease-in-out */
+    opacity: 1;
+    z-index: -1;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0), 
+                0 0 40px currentColor, 
+                0 0 60px currentColor;
+    position: relative; /* لتحديد مواقع الدوائر بشكل دقيق */
+}
+
+
+.extra-circle-left {
+    position: absolute;
+    top: 91px; /* المسافة من الأعلى */
+    left: 9%; /* المسافة من اليسار */
+    width: 8px; /* حجم مختلف */
+    height: 8px; /* نفس العرض والطول لجعلها دائرية */
+    border-radius: 50%; /* جعلها دائرية */
+    background: var(--circle-color-left, blue); /* لون الكرات على اليسار */
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0), 
+                0 0 40px currentColor, 
+                0 0 60px currentColor;
+    animation: float 1s ease-in-out infinite, colors-left 4s infinite; /* نفس الحركة */
+    opacity: 1; /* نفس الشفافية */
+    z-index: -1; /* نفس الترتيب */
+}
+
+/* الأشكال العشوائية (اليمين - التصميم الجديد) */
+.floating-container-right {
+    display: flex;
+    flex-direction: column; /* ترتيب العناصر عموديًا */
+    align-items: center; /* توسيط الدوائر أفقياً */
+    gap: 0px; /* المسافة بين الدوائر */
+    position: absolute;
+    top: 100px; /* المسافة من الأعلى */
+    right: 8%; /* المسافة من اليمين */
+    transform: translateX(50%);
+}
+
+/* الكرات على الجانب الأيمن */
+.floating-container-right .floating-circle-right {
+    width: 10px; /* حجم الدائرة */
+    height: 10px;
+    border-radius: 50%; /* جعلها دائرية */
+    background: var(--circle-color-right, red); /* لون الكرات على اليمين */
+    animation: float-right-smooth 2.5s ease-in-out infinite, colors-right 4s infinite; /* استخدام التحريك الجديد مع ease-in-out */
+    opacity: 1;
+    z-index: -1;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0), 
+                0 0 40px currentColor, 
+                0 0 60px currentColor;
+    position: relative; /* لتحديد مواقع الدوائر بشكل دقيق */
+}
+
+/* تحديد مواقع الكرات على الجانب الأيمن */
+.floating-container-right .floating-circle-right:nth-child(1),
+.floating-container-right .floating-circle-right:nth-child(2) {
+    top: 0;
+    position: fixed;
+}
+
+.floating-container-right .floating-circle-right:nth-child(1) {
+    left: 0;
+}
+
+.floating-container-right .floating-circle-right:nth-child(2) {
+    left: 15px; /* مسافة صغيرة بين الكرتين */
+}
+
+.floating-container-right .floating-circle-right:nth-child(3),
+.floating-container-right .floating-circle-right:nth-child(4) {
+    top: 15px; /* نزول إلى السطر التالي */
+    position: fixed;
+}
+
+.floating-container-right .floating-circle-right:nth-child(3) {
+    left: 0;
+}
+
+.floating-container-right .floating-circle-right:nth-child(4) {
+    left: 15px; /* مسافة صغيرة بين الكرتين */
+}
+
+.floating-container-right .floating-circle-right:nth-child(5),
+.floating-container-right .floating-circle-right:nth-child(6) {
+    top: 30px; /* نزول إلى السطر الثالث */
+    position: fixed;
+}
+
+.floating-container-right .floating-circle-right:nth-child(5) {
+    left: 0;
+}
+
+.floating-container-right .floating-circle-right:nth-child(6) {
+    left: 15px; /* مسافة صغيرة بين الكرتين */
+}
+
+/* الأنماط الخاصة بالكرات الأربع الجديدة */
+.floating-container-right .new-floating-circle-right-unique {
+    width: 6px; /* حجم الدائرة */
+    height: 6px;
+    border-radius: 50%; /* جعلها دائرية */
+    background: var(--circle-color-right, rgb(255, 208, 0)); /* لون الكرات على اليمين */
+    animation: float-square-right 3.5s ease-in-out infinite; /* استخدام التحريك الجديد مع ease-in-out */
+    opacity: 1;
+    z-index: -1;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0), 
+                0 0 40px currentColor, 
+                0 0 60px currentColor;
+    position: absolute; /* لتحديد مواقع الدوائر بشكل دقيق */
+}
+
+/* تحديد مواقع الكرات الأربع */
+.floating-container-right .new-floating-circle-right-unique:nth-child(7) {
+    top: 10px; /* الأولى في الأعلى */
+    left: 1px;
+}
+.floating-container-right .new-floating-circle-right-unique:nth-child(8) {
+    top: 15.2px; /* الثانية أسفل الأولى */
+}
+.floating-container-right .new-floating-circle-right-unique:nth-child(9) {
+    top: 21.5px; /* الثالثة أسفل الثانية */
+}
+.floating-container-right .new-floating-circle-right-unique:nth-child(10) {
+    top: 27.9px; /* الرابعة أسفل الثالثة */
+}
+.floating-container-right .new-floating-circle-right-unique:nth-child(11) {
+    top: 34.2px; /* الخامسه أسفل الثالثة */
+}
+
+ /* حركة عشوائية */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(560px);
+    }
+}
+/* حركة الكرات العائمة على الجانب الأيمن */
+@keyframes float-right-smooth {
+    0%, 100% {
+        transform: translateY(0); /* البداية في الموضع الأصلي */
+    }
+    25% {
+        transform: translateY(600px); /* تنزل إلى الأسفل */
+    }
+    50% {
+        transform: translateX(-330px) translateY(600px); /* تنتقل إلى اليسار */
+    }
+    75% {
+        transform: translateX(-330px) translateY(0); /* تصعد للأعلى */
+    }
+}
+/* [new circle]حركة الكرات الأربع في شكل مربع */
+@keyframes float-square-right {
+    0% {
+        transform: translateY(0); /* البداية في الموضع الأصلي */
+    }
+    25% {
+        transform: translateY(600px); /* تنزل إلى الأسفل */
+    }
+    50% {
+        transform: translateX(-330px) translateY(600px); /* تنتقل إلى الشمال (اليسار) */
+    }
+    75% {
+        transform: translateX(-330px) translateY(0); /* تصعد للأعلى */
+    }
+    100% {
+        transform: translateX(0) translateY(0); /* تعود إلى اليمين */
+    }
+}
+/* حركة الكرات على الجانب الأيسر في شكل مربع مائل نحو اليمين */
+@keyframes float-left-square-right {
+    0% {
+        transform: translateY(0); /* البداية في الموضع الأصلي */
+    }
+    25% {
+        transform: translateY(600px); /* تنزل إلى الأسفل */
+    }
+    50% {
+        transform: translateX(330px) translateY(600px); /* تنتقل إلى اليمين */
+    }
+    75% {
+        transform: translateX(330px) translateY(0); /* تصعد للأعلى */
+    }
+    100% {
+        transform: translateX(0) translateY(0); /* تعود إلى الشمال (اليسار) */
+    }
+}
+
+
+/* تغيير الألوان (للكرات على اليسار) */
+@keyframes colors-left {
+    0% { background: rgb(0, 0, 255); } /* Blue */
+    20% { background: rgb(0, 0, 255); } /* Cyan */
+    40% { background: rgb(0, 0, 255); } /* Green */
+    60% { background: #64ffda; } /* Yellow */
+    80% { background: #64ffda; } /* Orange */
+    100% { background: rgb(0, 0, 255); } /* Red */
+}
+
+/* تغيير الألوان (للكرات على اليمين) */
+@keyframes colors-right {
+    0% { background: rgb(255, 0, 0); } /* Red */
+    20% { background: rgb(255, 0, 0); } /* Orange */
+    40% { background: rgb(255, 115, 0); } /* Yellow */
+    60% { background: rgb(255, 123, 0); } /* Green */
+    80% { background: rgb(255, 0, 0); } /* Cyan */
+    100% { background: rgb(255, 0, 0); } /* Blue */
 }
 
 /* الإطار الرئيسي مع تأثير النيون */
 .container {
     position: relative;
     padding: 2.5rem;
-    border: 2px solid ;
+    border: 2px solid;
     border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
+    max-width: 500px;
+    width: 270px;
+    height: auto;
     background: #001220;
     box-shadow: 0 0 25px rgba(100, 255, 218, 0.2);
 }
@@ -31,6 +263,7 @@ body {
 /* العنوان */
 h1 {
     color: #64ffda;
+    position: relative;
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2rem;
@@ -41,13 +274,11 @@ h1 {
 .input-group {
     margin-bottom: 1.5rem;
 }
-
 .input-group label {
     display: block;
     color: #64ffda;
     margin-bottom: 0.5rem;
 }
-
 .input-group input {
     width: 100%;
     padding: 0.8rem;
@@ -58,7 +289,6 @@ h1 {
     font-size: 1rem;
     outline: none;
 }
-
 .input-group input:focus {
     box-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
 }
@@ -80,21 +310,21 @@ h1 {
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-shadow: 0 5px 0 #1e7a5e;
 }
-
 .login-btn:active {
     transform: translateY(5px);
     box-shadow: 0 2px 0 #1e7a5e;
+}
+.login-btn:hover {
+    background: #4fffcf; /* Slightly lighter shade */
+    box-shadow: 0 8px 0 #1e7a5e;
 }
 
 /* تصميم متجاوب */
 @media (max-width: 768px) {
     h1 {
-        font-size: 1.5rem;
-    }
-    h1 {
-        font-size: 1.5rem;
+        font-size: 1.2rem; /* Slightly larger for readability */
     }
     .container {
-        padding: 1.5rem;
+        padding: 1rem; /* Reduced padding */
     }
 }
